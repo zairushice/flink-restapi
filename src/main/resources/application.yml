@@ -6,10 +6,15 @@ spring:
     password: Isysc0re
   servlet:
     multipart:
-      max-file-size: -1
-      max-request-size: -1
+      max-file-size: 512MB
+      max-request-size: 512MB
+#  mvc:
+#    static-path-pattern: /resources/**
 
-#mybatis-plus:
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 #  mapper-locations: classpath*:/mapper/*.xml
 #  #实体扫描，多个package用逗号或者分号分隔
 #  typeAliasesPackage: com.isyscore.data.udmp.indicator.entity
@@ -33,4 +38,3 @@ spring:
 #    #sql-injector: com.baomidou.mybatisplus.mapper.LogicSqlInjector
 #    #自定义填充策略接口实现
 #    #meta-object-handler: com.baomidou.springboot.xxx
-

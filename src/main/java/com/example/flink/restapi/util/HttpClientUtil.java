@@ -1,7 +1,7 @@
 package com.example.flink.restapi.util;
 
 import com.alibaba.fastjson.JSONObject;
-import com.example.flink.restapi.api.vo.JarVO;
+import com.example.flink.restapi.vo.JarVO;
 import org.apache.http.HttpEntity;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -93,5 +93,17 @@ public class HttpClientUtil {
         httpPost.setURI(new URI(baseURI + String.format("v1/jars/%s/run?", jarVO.getJarId())));
         httpPost.setEntity(httpEntity);
         return httpClient.execute(httpPost);
+    }
+
+    public CloseableHttpResponse getJobsList() throws URISyntaxException, IOException {
+        HttpGet httpGet = new HttpGet();
+        httpGet.setURI(new URI(baseURI + "/jobs"));
+        return httpClient.execute(httpGet);
+    }
+
+    public CloseableHttpResponse getJobDetail(String jobId) throws URISyntaxException, IOException {
+        HttpGet httpGet = new HttpGet();
+        httpGet.setURI(new URI(baseURI + String.format("/jobs/%s", jobId)));
+        return httpClient.execute(httpGet);
     }
 }

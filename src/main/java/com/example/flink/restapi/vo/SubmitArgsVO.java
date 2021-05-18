@@ -1,4 +1,4 @@
-package com.example.flink.restapi.api.vo;
+package com.example.flink.restapi.vo;
 
 import lombok.Data;
 

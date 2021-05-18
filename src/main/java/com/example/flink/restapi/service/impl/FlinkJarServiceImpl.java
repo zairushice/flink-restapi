@@ -1,18 +1,18 @@
-package com.example.flink.restapi.service;
+package com.example.flink.restapi.service.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.example.flink.restapi.api.service.FlinkJarService;
-import com.example.flink.restapi.api.vo.JarVO;
+import com.example.flink.restapi.dao.FlinkJobDAO;
+import com.example.flink.restapi.vo.JarVO;
 import com.example.flink.restapi.dao.FlinkJarDAO;
 import com.example.flink.restapi.dto.*;
 import com.example.flink.restapi.entity.FlinkJar;
+import com.example.flink.restapi.service.FlinkJarService;
 import com.example.flink.restapi.util.HttpClientUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.util.EntityUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,6 +30,9 @@ public class FlinkJarServiceImpl implements FlinkJarService {
     @Resource
     FlinkJarDAO flinkJarDAO;
 
+    @Resource
+    FlinkJobDAO flinkJobDAO;
+
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     @Override
@@ -37,7 +40,6 @@ public class FlinkJarServiceImpl implements FlinkJarService {
         FlinkJarsDTO flinkJarsDTO = new FlinkJarsDTO();
         String baseURI = "http://" + host;
         HttpClientUtil httpClientUtil = new HttpClientUtil(baseURI);
-        log.debug(baseURI);
         try {
             CloseableHttpResponse response = httpClientUtil.showJars();
             String str = EntityUtils.toString(response.getEntity());
@@ -106,7 +108,9 @@ public class FlinkJarServiceImpl implements FlinkJarService {
             CloseableHttpResponse response = httpClientUtil.submitJar(jarVO);
             if (response.getStatusLine().getStatusCode() == 200) {
                 String str = EntityUtils.toString(response.getEntity());
-                flinkJarSubmitDTO.setJobId(JSON.parseObject(str).getString("jobid"));
+                String jobId = JSON.parseObject(str).getString("jobId");
+                flinkJarSubmitDTO.setJobId(jobId);
+
             }
         } catch (URISyntaxException | IOException e) {
             e.printStackTrace();
