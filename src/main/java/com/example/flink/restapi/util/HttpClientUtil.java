@@ -26,6 +26,7 @@ public class HttpClientUtil {
     private final String baseURI;
 
     public HttpClientUtil(String baseURI) {
+        baseURI = "http://" + baseURI;
         if (!baseURI.endsWith("/")) {
             this.baseURI = baseURI + "/";
         }else {

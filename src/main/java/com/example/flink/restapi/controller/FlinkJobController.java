@@ -1,10 +1,10 @@
 package com.example.flink.restapi.controller;
 
+import com.example.flink.restapi.dto.FlinkJobDetailDTO;
 import com.example.flink.restapi.dto.FlinkJobsDTO;
 import com.example.flink.restapi.service.FlinkJobService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.example.flink.restapi.vo.JobVO;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
@@ -15,8 +15,13 @@ public class FlinkJobController {
     @Resource
     FlinkJobService flinkJobService;
 
-    @GetMapping
-    public FlinkJobsDTO getFlinkJobsList() {
-        return flinkJobService.getFlinkJobs();
+    @PostMapping
+    public FlinkJobsDTO getFlinkJobsList(@RequestBody JobVO jobVo) {
+        return flinkJobService.getFlinkJobs(jobVo.getHost());
+    }
+
+    @PostMapping("/detail")
+    public FlinkJobDetailDTO getFlinkJobDetail(@RequestBody JobVO jobVO) {
+        return flinkJobService.getFlinkJobDetail(jobVO);
     }
 }
