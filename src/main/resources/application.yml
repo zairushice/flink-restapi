@@ -38,3 +38,12 @@ mybatis-plus:
 #    #sql-injector: com.baomidou.mybatisplus.mapper.LogicSqlInjector
 #    #自定义填充策略接口实现
 #    #meta-object-handler: com.baomidou.springboot.xxx
+feign:
+  client:
+    config:
+      default:
+        connect-timeout: 500
+        read-timeout: 20000
+flink-client:
+  host: 192.168.9.12
+  port: 8081
