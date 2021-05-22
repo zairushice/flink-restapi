@@ -1,5 +1,6 @@
 package com.example.flink.restapi.controller;
 
+import com.example.flink.restapi.dto.RespDTO;
 import com.example.flink.restapi.service.FlinkJarService;
 import com.example.flink.restapi.dto.FlinkJarSubmitDTO;
 import com.example.flink.restapi.dto.FlinkJarsDTO;
@@ -30,6 +31,11 @@ public class FlinkJarController {
     @PostMapping("/{jarid}/run")
     public FlinkJarSubmitDTO submitFlinkJar(@PathVariable String jarid, @RequestBody SubmitArgsVO submitArgsVO) {
         return flinkJarService.runJar(jarid, submitArgsVO);
+    }
+
+    @DeleteMapping("/{jarid}")
+    public RespDTO<?> deleteFlinkJar(@PathVariable String jarid) {
+        return flinkJarService.deleteJar(jarid);
     }
 
 }

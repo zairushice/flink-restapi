@@ -21,4 +21,7 @@ public interface FlinkService {
 
     @PostMapping(value = "/jars/{jarid}/run", consumes = MediaType.APPLICATION_JSON_VALUE)
     JSONObject runJar(@PathVariable String jarid, @RequestBody Map<String, String> args);
+
+    @DeleteMapping(value = "/jars/{jarid}")
+    JSONObject deleteJar(@PathVariable String jarid);
 }

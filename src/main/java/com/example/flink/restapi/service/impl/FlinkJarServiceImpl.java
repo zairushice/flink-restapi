@@ -37,7 +37,6 @@ public class FlinkJarServiceImpl implements FlinkJarService {
     @Autowired
     FlinkService flinkService;
 
-    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     @Override
     public FlinkJarsDTO getJarsData() {
@@ -99,5 +98,12 @@ public class FlinkJarServiceImpl implements FlinkJarService {
         String jobId = jsonObject.getString("jobid");
         flinkJarSubmitDTO.setJobId(jobId);
         return flinkJarSubmitDTO;
+    }
+
+    @Override
+    public RespDTO<?> deleteJar(String jarid) {
+        JSONObject jsonObject = flinkService.deleteJar(jarid);
+        System.out.println(jsonObject.toJSONString());
+        return RespDTO.onSuc();
     }
 }
